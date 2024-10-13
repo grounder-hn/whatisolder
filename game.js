@@ -114,7 +114,31 @@ function updateQuestion() {
   currentScoreElement.textContent = score;
   currentQuestionElement.textContent = questionCount;
 }
+function getRandomEvents() {
+  if (availableEvents.length < 2) {
+    endGame();
+    return;
+  }
 
+  let event1, event2;
+  let validPair = false;
+
+  while (!validPair) {
+    const shuffled = availableEvents.sort(() => 0.5 - Math.random());
+    event1 = shuffled[0];
+    event2 = shuffled[1];
+
+    // 두 사건의 연도 차이가 10년 이내일 경우 validPair를 true로 설정
+    if (Math.abs(event1.year - event2.year) <= 10) {
+      validPair = true;
+    }
+  }
+
+  // 선택된 사건들을 availableEvents에서 제거
+  availableEvents = availableEvents.filter(event => event !== event1 && event !== event2);
+
+  return [event1, event2];
+}
 function checkAnswer(older, newer, selectedYear, otherYear) {
   event1Image.parentElement.classList.add('selected');
   event2Image.parentElement.classList.add('selected');
