@@ -41,7 +41,7 @@ body {
 }
 
 .event-image {
-  width: 300px; /* 모니터 이미지 크기 */
+  width: 700px; /* 모니터 이미지 크기 */
   height: auto;
 }
 
@@ -52,9 +52,9 @@ body {
 }
 
 .vs-text {
-  font-size: 40px;
+  font-size: 50px;
   color: white;
-  margin: 0 20px;
+  margin: 0 0px;
 }
 
 .hidden {
