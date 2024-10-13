@@ -6,7 +6,7 @@ const events = [
   { name: '셔플댄스', year: 2010, image: 'images/04.png' },
   { name: '무한도전 돈가방을 갖고 튀어라', year: 2008, image: 'images/05.png' },
   { name: '꼭짓점 댄스', year: 2006, image: 'images/06.png' },
-  { name: '빅뱅 붉은노을', year: 2008, image: 'images/07.png' },
+  { name: '빠삐놈', year: 2008, image: 'images/07.png' },
   { name: '슈퍼주니어 쏘리쏘리', year: 2009, image: 'images/08.png' },
   { name: '스타크래프트: 브루드 워', year: 1998, image: 'images/09.png' },
   { name: '마시마로(엽기토끼)', year: 2000, image: 'images/10.png' },
