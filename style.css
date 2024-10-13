@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'NeoDGM';
+  src: url('fonts/neodgm.woff2') format('woff2'),
+       url('fonts/neodgm.woff') format('woff');
+}
+
 body {
   background-color: #1e1e1e; /* 어두운 배경 */
   display: flex;
