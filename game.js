@@ -36,6 +36,7 @@ let availableEvents = [...events];
 let score = 0;
 let questionCount = 0;
 const totalQuestions = 15;
+let isAnswered = false;  // 정답을 클릭한 후 문제를 다시 클릭할 수 없도록 하는 플래그
 
 // DOM 요소 참조
 const event1Image = document.getElementById('event1Image');
@@ -79,6 +80,8 @@ function resetStyles() {
 
   event1Image.parentElement.classList.remove('selected');
   event2Image.parentElement.classList.remove('selected');
+
+  isAnswered = false; // 문제를 다시 클릭할 수 있게 초기화
 }
 
 function getRandomEvents() {
@@ -231,4 +234,3 @@ function showRanking() {
 // 게임 시작
 updateQuestion();
 showRanking(); // 페이지가 로드될 때 랭킹 표시
-
