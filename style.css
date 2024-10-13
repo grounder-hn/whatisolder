@@ -8,7 +8,7 @@
 }
 
 body {
-  background-color: #1e1e1e;
+  background-color: #1e1e1e; /* 어두운 배경 */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,137 +18,73 @@ body {
   font-family: 'NeoDGM', sans-serif;
   color: white;
 }
+
+.score-board {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.score-board p {
+  font-size: 18px;
+  margin: 5px;
+}
+
 .container {
   display: flex;
   align-items: center;
-  justify-content: space-around; /* 이미지 사이의 간격 확보 */
-  width: 80%; /* 전체 화면의 80%로 설정 */
+  justify-content: center;
 }
 
-.vs-text {
-  font-size: 60px; /* VS 텍스트 크기 조정 */
-  color: white;
-  margin: 0 20px;
-}
-
-/* 이미지와 텍스트의 호버 효과를 부모 요소에 적용 */
-.monitor-container:hover .event-image,
-.monitor-container:hover .event-name {
-  background-color: #00ff00; /* 이미지와 텍스트에 적용되는 녹색 배경 */
-  color: #1e1e1e; /* 이미지와 텍스트에 어두운 글자색 */
-  border-radius: 5px;
+.monitor-container {
+  text-align: center;
+  margin: 0 40px;
+  position: relative;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .event-image {
-  width: 600px; /* 모니터 이미지 크기 */
+  width: 700px;
   height: auto;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.event-name {
-  color: #00ff00; /* 기본 녹색 텍스트 */
-  margin-top: 10px;
-  font-size: 30px;
-  padding: 5px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-/* 마우스 호버 시 텍스트의 녹색 박스와 어두운 글자색 */
-.monitor-container:hover .event-name {
-  background-color: #00ff00; /* 녹색 배경 */
-  color: #1e1e1e; /* 어두운 글자 */
-  border-radius: 5px; /* 테두리 둥글게 */
+  transition: opacity 0.3s; /* 이미지 투명도 변경 */
 }
 
 .event-year {
+  font-size: 40px;
+  color: white;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 100px;
-  color: white;
-  opacity: 0;
+  opacity: 0; /* 기본적으로 연도는 안 보이게 */
   transition: opacity 0.3s;
-  pointer-events: none; /* 텍스트 클릭 불가 */
-}
-
-.monitor-container {
-  position: relative;
-  text-align: center;
-  margin: 0 20px; /* 마진 크기를 줄여 이미지를 중앙으로 */
-}
-
-.monitor-container.selected .event-image {
-  opacity: 0.2; /* 선택 시 이미지 투명도 */
 }
 
 .monitor-container.selected .event-year {
-  opacity: 1; /* 선택 시 연도 표시 */
+  opacity: 1; /* 선택되면 연도 표시 */
 }
 
-/* 정답일 경우 배경색이 초록색으로 깜빡임 */
 .correct-answer {
-  animation: blink-green 0.5s alternate 3;
+  animation: blink-green 0.5s alternate 3; /* 초록색 깜빡임 */
+}
+
+.wrong-answer {
+  animation: blink-red 0.5s alternate 3; /* 빨간색 깜빡임 */
 }
 
 @keyframes blink-green {
-  0% { background-color: #1e1e1e; }
-  100% { background-color: #00ff00; }
-}
-
-/* 오답일 경우 배경색이 빨간색으로 깜빡임 */
-.wrong-answer {
-  animation: blink-red 0.5s alternate 3;
+  from { background-color: #1e1e1e; }
+  to { background-color: #00ff00; }
 }
 
 @keyframes blink-red {
-  0% { background-color: #1e1e1e; }
-  100% { background-color: #ff0000; }
+  from { background-color: #1e1e1e; }
+  to { background-color: #ff0000; }
 }
 
-#nextButton {
-  display: none; /* 처음에는 숨겨진 상태 */
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 18px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
 .hidden {
   display: none;
 }
 
 #result-page {
   text-align: center;
-}
-#playerName {
-  margin-top: 10px;
-  padding: 5px;
-  font-size: 16px;
-}
-
-#submitScore {
-  margin-left: 10px;
-  padding: 5px 10px;
-  font-size: 16px;
-}
-
-#rankingList {
-  list-style: none;
-  padding: 0;
-}
-
-#rankingList li {
-  margin: 5px 0;
-  font-size: 18px;
-}
-
-
-
-
-#nextButton:hover {
-  background-color: #45a049;
 }
