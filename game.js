@@ -68,17 +68,6 @@ function getRandomEvents() {
     endGame();
     return;
   }
-  const shuffled = availableEvents.sort(() => 0.5 - Math.random());
-  const event1 = shuffled[0];
-  const event2 = shuffled[1];
-  availableEvents = availableEvents.filter(event => event !== event1 && event !== event2);
-  return [event1, event2];
-}
-function getRandomEvents() {
-  if (availableEvents.length < 2) {
-    endGame();
-    return;
-  }
 
   let event1, event2;
   let validPair = false;
