@@ -53,16 +53,9 @@ const submitScoreButton = document.getElementById('submitScore');
 const playerNameInput = document.getElementById('playerName');
 const rankingList = document.getElementById('rankingList');
 
-nextButton.id = 'nextButton';
-nextButton.textContent = '다음 문제';
-document.body.appendChild(nextButton);  // 버튼을 body에 추가
-
-nextButton.onclick = () => {
-  nextButton.style.display = 'none';  // 버튼 숨기기
-  updateQuestion();  // 다음 질문으로 이동
-};
 // 총 문제 수 설정
 totalQuestionsElement.textContent = totalQuestions;
+
 function getRandomEvents() {
   if (availableEvents.length < 2) {
     endGame();
@@ -89,14 +82,12 @@ function getRandomEvents() {
 
   return [event1, event2];
 }
+
 function updateQuestion() {
   if (questionCount >= totalQuestions) {
     endGame();
     return;
   }
-  // 기존 연도 요소 삭제
-  const existingYears = document.querySelectorAll('.event-year');
-  existingYears.forEach(year => year.remove());
 
   const [event1, event2] = getRandomEvents();
 
@@ -105,46 +96,23 @@ function updateQuestion() {
   event2Image.src = event2.image;
   event2Name.textContent = event2.name;
 
-  // 새로운 연도 요소 추가
-  const event1Year = document.createElement('div');
-  event1Year.textContent = event1.year;
-  event1Year.classList.add('event-year');
-  const event2Year = document.createElement('div');
-  event2Year.textContent = event2.year;
-  event2Year.classList.add('event-year');
-
-  event1Image.after(event1Year);
-  event2Image.after(event2Year);
-
-  // 이미지와 연도를 다시 초기화
-  event1Image.parentElement.classList.remove('selected');
-  event2Image.parentElement.classList.remove('selected');
-
-  event1Image.onclick = () => checkAnswer(event1, event2, event1Year, event2Year);
-  event2Image.onclick = () => checkAnswer(event2, event1, event2Year, event1Year);
+  event1Image.onclick = () => checkAnswer(event1, event2);
+  event2Image.onclick = () => checkAnswer(event2, event1);
 
   questionCount++;
+
+  // 현재 점수와 문제 번호 업데이트
   currentScoreElement.textContent = score;
   currentQuestionElement.textContent = questionCount;
 }
-function checkAnswer(older, newer, selectedYear, otherYear) {
-  event1Image.parentElement.classList.add('selected');
-  event2Image.parentElement.classList.add('selected');
 
+function checkAnswer(older, newer) {
   if (older.year < newer.year) {
     score++;
-    body.classList.add('correct-answer');
-  } else {
-    body.classList.add('wrong-answer');
   }
-  // 버튼을 표시하고, 마지막 문제일 경우 '결과 보기'로 변경
-  nextButton.textContent = (questionCount === totalQuestions) ? '결과 보기' : '다음 문제';
-  nextButton.style.display = 'block';
-
-  setTimeout(() => {
-    body.classList.remove('correct-answer', 'wrong-answer');
-  }, 1500);  // 1.5초 후 배경색 효과 제거
+  updateQuestion();
 }
+
 function endGame() {
   // 게임 페이지 숨기고 결과 페이지 보여주기
   gamePage.classList.add('hidden');
@@ -153,6 +121,7 @@ function endGame() {
   // 최종 점수 표시
   finalScoreElement.textContent = score;
 }
+
 // 게임 다시 시작
 restartButton.onclick = () => {
   score = 0;
@@ -203,3 +172,4 @@ function showRanking() {
 // 게임 시작
 updateQuestion();
 showRanking(); // 페이지가 로드될 때 랭킹 표시
+
