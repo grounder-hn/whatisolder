@@ -70,10 +70,6 @@ nextButton.onclick = () => {
 
 // 총 문제 수 설정
 totalQuestionsElement.textContent = totalQuestions;
-function updateProgressBar() {
-  const progressPercentage = (questionCount / totalQuestions) * 100;
-  progressBar.style.width = `${progressPercentage}%`;
-}
 // 연도 초기화 및 선택된 스타일 리셋
 function resetStyles() {
   event1Image.style.opacity = 1;
@@ -114,7 +110,10 @@ function getRandomEvents() {
 
   return [event1, event2];
 }
-
+function updateProgressBar() {
+  const progressPercentage = (questionCount / totalQuestions) * 100;
+  progressBar.style.width = `${progressPercentage}%`;
+}
 function updateQuestion() {
   if (questionCount >= totalQuestions) {
     endGame();
