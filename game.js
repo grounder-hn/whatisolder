@@ -54,8 +54,8 @@ const submitScoreButton = document.getElementById('submitScore');
 const playerNameInput = document.getElementById('playerName');
 const rankingList = document.getElementById('rankingList');
 const nextButton = document.createElement('button');  // '다음 문제' 버튼 동적 생성
-const progressBar = document.getElementById('progressBar');
 const body = document.body;
+const progressBar = document.getElementById('progressBar');
 
 nextButton.id = 'nextButton';
 nextButton.textContent = '다음 문제';
@@ -119,7 +119,6 @@ function updateQuestion() {
     endGame();
     return;
   }
-
   const [event1, event2] = getRandomEvents();
 
   console.log('Event 1 Image:', event1.image);  // 이미지 경로 출력
