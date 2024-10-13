@@ -79,7 +79,7 @@ body {
 }
 
 .monitor-container.selected .event-image {
-  opacity: 0.8; /* 선택 시 이미지 투명도 */
+  opacity: 0.2; /* 선택 시 이미지 투명도 */
 }
 
 .monitor-container.selected .event-year {
