@@ -57,7 +57,6 @@ const playerNameInput = document.getElementById('playerName');
 const rankingList = document.getElementById('rankingList');
 const nextButton = document.createElement('button');  // '다음 문제' 버튼 동적 생성
 const body = document.body;
-const progressBar = document.getElementById('progressBar');
 
 nextButton.id = 'nextButton';
 nextButton.textContent = '다음 문제';
@@ -150,10 +149,6 @@ function checkAnswer(older, newer) {
     body.classList.remove('correct-answer', 'wrong-answer');
   }, 1500);  // 1.5초 후 배경색 효과 제거
 }
-function updateProgressBar() {
-  const progressPercentage = (questionCount / totalQuestions) * 100;
-  progressBar.style.width = `${progressPercentage}%`;
-}
 function updateQuestion() {
   if (questionCount >= totalQuestions) {
     endGame();
@@ -174,11 +169,6 @@ function updateQuestion() {
   event2Image.onclick = () => { if (!isAnswered) checkAnswer(event2, event1); };
 
   questionCount++;
-
-  // 현재 점수와 진행 바 업데이트
-  currentScoreElement.textContent = score;
-  updateProgressBar();  // 진행 바 업데이트
-}
 
 function endGame() {
   // 게임 페이지 숨기고 결과 페이지 보여주기
