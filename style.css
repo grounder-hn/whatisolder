@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'NeoDGM';
-  src: url('font/neodgm.woff2') format('woff2'),
-       url('font/neodgm.woff') format('woff');
+  src: url('fonts/neodgm.woff2') format('woff2'),
+       url('fonts/neodgm.woff') format('woff');
 }
 
 body {
@@ -9,9 +9,21 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 100vh;
   margin: 0;
-  font-family: 'NeoDGM', sans-serif; /* 네오둠 폰트 */
+  font-family: 'NeoDGM', sans-serif;
+  color: white;
+}
+
+.score-board {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.score-board p {
+  font-size: 18px;
+  margin: 5px;
 }
 
 .container {
@@ -26,7 +38,7 @@ body {
 }
 
 .event-image {
-  width: 300px; /* 모니터 이미지 크기 */
+  width: 700px; /* 모니터 이미지 크기 */
   height: auto;
 }
 
