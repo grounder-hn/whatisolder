@@ -30,7 +30,7 @@ const events = [
   { name: '신과함께', year: 2010, image: './images/28.png' },
   { name: '상남2인조', year: 1991, image: './images/29.png' },
   { name: '별은 내 가슴에. 안재욱', year: 1997, image: './images/30.png' }
-];
+ ];
 
   let availableEvents = [...events];
   let score = 0;
