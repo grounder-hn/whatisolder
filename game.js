@@ -34,7 +34,7 @@ const events = [
 
 let score = 0;
 let questionCount = 0;
-const totalQuestions = 15;  // 총 문제 수를 15로 설정
+const totalQuestions = 15;  // 총 문제 수
 
 // DOM 요소
 const event1Button = document.getElementById('event1Button');
@@ -44,6 +44,8 @@ const finalScoreElement = document.getElementById('finalScore');
 const resultPage = document.getElementById('result');
 const gamePage = document.getElementById('game');
 const rankingList = document.getElementById('rankingList');
+const usernameInput = document.getElementById('username');
+const submitScoreButton = document.getElementById('submitScore');
 
 // 남은 사건 배열
 let availableEvents = [...events];
@@ -102,18 +104,39 @@ function endGame() {
   displayRanking();
 }
 
+// 로컬 저장소에서 랭킹을 가져오기
+function getRanking() {
+  const ranking = localStorage.getItem('ranking');
+  return ranking ? JSON.parse(ranking) : [];
+}
+
+// 로컬 저장소에 랭킹 저장하기
+function saveRanking(newRanking) {
+  localStorage.setItem('ranking', JSON.stringify(newRanking));
+}
+
+// 점수를 랭킹에 추가하고 정렬 후 상위 20명만 표시
+function addToRanking(username, score) {
+  const ranking = getRanking();
+  ranking.push({ username, score });
+
+  // 점수 높은 순으로 정렬
+  ranking.sort((a, b) => b.score - a.score);
+
+  // 상위 20명만 저장
+  const topRanking = ranking.slice(0, 20);
+  saveRanking(topRanking);
+  displayRanking();
+}
+
+// 랭킹을 화면에 표시
 function displayRanking() {
-  // 랭킹 리스트 임시 데이터
-  const rankings = [
-    { username: '홍길동', score: 5 },
-    { username: '김철수', score: 4 },
-    { username: '박영희', score: 3 }
-  ];
+  const ranking = getRanking();
 
   rankingList.innerHTML = '';
-  rankings.forEach((entry) => {
+  ranking.forEach((entry, index) => {
     const li = document.createElement('li');
-    li.textContent = `${entry.username}: ${entry.score}점`;
+    li.textContent = `${index + 1}. ${entry.username}: ${entry.score}점`;
     rankingList.appendChild(li);
   });
 }
@@ -127,6 +150,15 @@ document.getElementById('restart').onclick = () => {
   resultPage.classList.add('hidden');
   gamePage.classList.remove('hidden');
   updateQuestion();
+};
+
+// 랭킹 등록 버튼 클릭 이벤트
+submitScoreButton.onclick = () => {
+  const username = usernameInput.value.trim();
+  if (username) {
+    addToRanking(username, score);
+    usernameInput.value = '';  // 입력 필드 초기화
+  }
 };
 
 // 게임 시작
