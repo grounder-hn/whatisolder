@@ -8,10 +8,11 @@
 </head>
 <body>
   <div class="score-board">
-    <p>현재 점수: <span id="currentScore">0</span></p>
-    <p>현재 문제: <span id="currentQuestion">1</span> / <span id="totalQuestions">15</span></p>
+  <p>현재 점수: <span id="currentScore">0</span></p>
+  <!-- 숫자 대신 Bar 형태로 문제 진행상황을 표시 -->
+  <div class="progress-bar-container">
+    <div class="progress-bar" id="progressBar"></div>
   </div>
-
   <div id="game-page" class="container">
     <div class="monitor-container">
       <img id="event1Image" class="event-image" src="" alt="Event 1">

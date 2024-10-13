@@ -30,12 +30,15 @@ const events = [
   { name: '신과함께', year: 2010, image: 'images/28.png' },
   { name: '상남2인조', year: 1991, image: 'images/29.png' },
   { name: '별은 내 가슴에. 안재욱', year: 1997, image: 'images/30.png' }
+  { name: '지폐 신권 발행', year: 2007, image: 'images/31.png' },
+  { name: '고구마언덕', year: 2002, image: 'images/32.png' }
 ];
 
 let availableEvents = [...events];
 let score = 0;
 let questionCount = 0;
 const totalQuestions = 15;
+let isAnswered = false;  // 정답을 클릭한 후 문제를 다시 클릭할 수 없도록 하는 플래그
 
 // DOM 요소 참조
 const event1Image = document.getElementById('event1Image');
@@ -54,6 +57,7 @@ const playerNameInput = document.getElementById('playerName');
 const rankingList = document.getElementById('rankingList');
 const nextButton = document.createElement('button');  // '다음 문제' 버튼 동적 생성
 const body = document.body;
+const progressBar = document.getElementById('progressBar');
 
 nextButton.id = 'nextButton';
 nextButton.textContent = '다음 문제';
@@ -61,10 +65,26 @@ document.body.appendChild(nextButton);  // 버튼을 body에 추가
 
 nextButton.onclick = () => {
   nextButton.style.display = 'none';  // 버튼 숨기기
+  resetStyles();  // 스타일 초기화
+  isAnswered = false;  // 문제를 다시 클릭할 수 있게 플래그 초기화
   updateQuestion();  // 다음 질문으로 이동
 };
+
 // 총 문제 수 설정
 totalQuestionsElement.textContent = totalQuestions;
+// 연도 초기화 및 선택된 스타일 리셋
+function resetStyles() {
+  event1Image.style.opacity = 1;
+  event2Image.style.opacity = 1;
+  
+  const eventYears = document.querySelectorAll('.event-year');
+  eventYears.forEach(year => year.remove());  // 이전 문제의 연도 삭제
+
+  event1Image.parentElement.classList.remove('selected');
+  event2Image.parentElement.classList.remove('selected');
+
+  isAnswered = false; // 문제를 다시 클릭할 수 있게 초기화
+}
 
 function getRandomEvents() {
   if (availableEvents.length < 2) {
@@ -92,36 +112,31 @@ function getRandomEvents() {
 
   return [event1, event2];
 }
+function checkAnswer(older, newer) {
+  isAnswered = true; // 정답을 한 번 선택하면 더 이상 클릭 불가능
 
-function updateQuestion() {
-  if (questionCount >= totalQuestions) {
-    endGame();
-    return;
-  }
+  // 선택된 이미지의 연도 표시 및 투명도 적용
+  const event1Year = document.createElement('div');
+  event1Year.className = 'event-year';
+  event1Year.textContent = older.year;
 
-  const [event1, event2] = getRandomEvents();
+  const event2Year = document.createElement('div');
+  event2Year.className = 'event-year';
+  event2Year.textContent = newer.year;
 
-  event1Image.src = event1.image;
-  event1Name.textContent = event1.name;
-  event2Image.src = event2.image;
-  event2Name.textContent = event2.name;
+  event1Image.parentElement.appendChild(event1Year);
+  event2Image.parentElement.appendChild(event2Year);
 
-  event1Image.onclick = () => checkAnswer(event1, event2);
-  event2Image.onclick = () => checkAnswer(event2, event1);
+  // 투명도 적용
+  event1Image.style.opacity = 0.5;
+  event2Image.style.opacity = 0.5;
 
-  questionCount++;
-
-  // 현재 점수와 문제 번호 업데이트
-  currentScoreElement.textContent = score;
-  currentQuestionElement.textContent = questionCount;
-}
-
-function checkAnswer(older, newer, selectedYear, otherYear) {
   event1Image.parentElement.classList.add('selected');
   event2Image.parentElement.classList.add('selected');
 
   if (older.year < newer.year) {
     score++;
+    currentScoreElement.textContent = score;  // 정답 시 즉시 점수 업데이트
     body.classList.add('correct-answer');
   } else {
     body.classList.add('wrong-answer');
@@ -134,6 +149,35 @@ function checkAnswer(older, newer, selectedYear, otherYear) {
   setTimeout(() => {
     body.classList.remove('correct-answer', 'wrong-answer');
   }, 1500);  // 1.5초 후 배경색 효과 제거
+}
+function updateProgressBar() {
+  const progressPercentage = (questionCount / totalQuestions) * 100;
+  progressBar.style.width = `${progressPercentage}%`;
+}
+function updateQuestion() {
+  if (questionCount >= totalQuestions) {
+    endGame();
+    return;
+  }
+  const [event1, event2] = getRandomEvents();
+
+  console.log('Event 1 Image:', event1.image);  // 이미지 경로 출력
+  console.log('Event 2 Image:', event2.image);  // 이미지 경로 출력
+
+  event1Image.src = event1.image;
+  event1Name.textContent = event1.name;
+  event2Image.src = event2.image;
+  event2Name.textContent = event2.name;
+
+  // 클릭 이벤트 설정 (isAnswered 플래그 확인)
+  event1Image.onclick = () => { if (!isAnswered) checkAnswer(event1, event2); };
+  event2Image.onclick = () => { if (!isAnswered) checkAnswer(event2, event1); };
+
+  questionCount++;
+
+  // 현재 점수와 진행 바 업데이트
+  currentScoreElement.textContent = score;
+  updateProgressBar();  // 진행 바 업데이트
 }
 
 function endGame() {
@@ -154,6 +198,7 @@ restartButton.onclick = () => {
   resultPage.classList.add('hidden');
   gamePage.classList.remove('hidden');
 
+  resetStyles();  // 스타일 초기화
   // 게임 재시작
   updateQuestion();
 };
@@ -195,4 +240,8 @@ function showRanking() {
 // 게임 시작
 updateQuestion();
 showRanking(); // 페이지가 로드될 때 랭킹 표시
+
+window.onload = function() {
+  updateQuestion();
+};
 
