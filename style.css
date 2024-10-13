@@ -8,8 +8,25 @@
 }
 
 body {
-  background-color: #1e1e1e; /* 기본 배경색 */
-  transition: background-color 0.3s; /* 배경색 변화를 부드럽게 */
+  background-color: #1e1e1e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around; /* 이미지 사이의 간격 확보 */
+  width: 80%; /* 전체 화면의 80%로 설정 */
+}
+
+.vs-text {
+  font-size: 50px; /* VS 텍스트 크기 조정 */
+  color: white;
+  margin: 0 20px;
 }
 
 .event-image {
