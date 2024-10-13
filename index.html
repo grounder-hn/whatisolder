@@ -7,26 +7,18 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>어떤게 더 옛날일까?</h1>
-  <div id="game">
-    <div class="question">
+  <div class="container">
+    <div class="monitor-container">
       <img id="event1Image" class="event-image" src="" alt="Event 1">
-      <p>VS</p>
-      <img id="event2Image" class="event-image" src="" alt="Event 2">
+      <p class="event-name" id="event1Name"></p>
     </div>
-    <div class="score">
-      <p>현재 점수: <span id="score">0</span></p>
-    </div>
-  </div>
 
-  <div id="result" class="hidden">
-    <h2>게임 종료</h2>
-    <p>최종 점수: <span id="finalScore"></span></p>
-    <p>랭킹에 이름을 남겨보세요:</p>
-    <input type="text" id="username" placeholder="이름 입력">
-    <button id="submitScore">랭킹 등록</button>
-    <div id="rankingList"></div>
-    <button id="restart">다시하기</button>
+    <p class="vs-text">VS</p>
+
+    <div class="monitor-container">
+      <img id="event2Image" class="event-image" src="" alt="Event 2">
+      <p class="event-name" id="event2Name"></p>
+    </div>
   </div>
 
   <script src="game.js"></script>
