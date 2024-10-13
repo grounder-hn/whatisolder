@@ -54,6 +54,7 @@ const submitScoreButton = document.getElementById('submitScore');
 const playerNameInput = document.getElementById('playerName');
 const rankingList = document.getElementById('rankingList');
 const nextButton = document.createElement('button');  // '다음 문제' 버튼 동적 생성
+const progressBar = document.getElementById('progressBar');
 const body = document.body;
 
 nextButton.id = 'nextButton';
@@ -69,7 +70,10 @@ nextButton.onclick = () => {
 
 // 총 문제 수 설정
 totalQuestionsElement.textContent = totalQuestions;
-
+function updateProgressBar() {
+  const progressPercentage = (questionCount / totalQuestions) * 100;
+  progressBar.style.width = `${progressPercentage}%`;
+}
 // 연도 초기화 및 선택된 스타일 리셋
 function resetStyles() {
   event1Image.style.opacity = 1;
@@ -130,9 +134,9 @@ function updateQuestion() {
 
   questionCount++;
 
-  // 현재 점수와 문제 번호 업데이트
+  // 현재 점수와 진행 바 업데이트
   currentScoreElement.textContent = score;
-  currentQuestionElement.textContent = questionCount;
+  updateProgressBar();  // 진행 바 업데이트
 }
 
 function checkAnswer(older, newer) {
