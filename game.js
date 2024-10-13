@@ -32,108 +32,109 @@ const events = [
   { name: '별은 내 가슴에. 안재욱', year: 1997, image: 'images/30.png' }
 ];
 
-let availableEvents = [...events];
-let score = 0;
-let questionCount = 0;
-const totalQuestions = 15;
+  let availableEvents = [...events];
+  let score = 0;
+  let questionCount = 0;
+  const totalQuestions = 15;
 
-// DOM 요소 참조
-const event1Image = document.getElementById('event1Image');
-const event2Image = document.getElementById('event2Image');
-const event1Name = document.getElementById('event1Name');
-const event2Name = document.getElementById('event2Name');
-const currentScoreElement = document.getElementById('currentScore');
-const currentQuestionElement = document.getElementById('currentQuestion');
-const totalQuestionsElement = document.getElementById('totalQuestions');
-const finalScoreElement = document.getElementById('finalScore');
-const gamePage = document.getElementById('game-page');
-const resultPage = document.getElementById('result-page');
-const restartButton = document.getElementById('restartButton');
+  // DOM 요소 참조
+  const event1Image = document.getElementById('event1Image');
+  const event2Image = document.getElementById('event2Image');
+  const event1Name = document.getElementById('event1Name');
+  const event2Name = document.getElementById('event2Name');
+  const currentScoreElement = document.getElementById('currentScore');
+  const currentQuestionElement = document.getElementById('currentQuestion');
+  const totalQuestionsElement = document.getElementById('totalQuestions');
+  const finalScoreElement = document.getElementById('finalScore');
+  const gamePage = document.getElementById('game-page');
+  const resultPage = document.getElementById('result-page');
+  const restartButton = document.getElementById('restartButton');
 
-// 총 문제 수 설정
-totalQuestionsElement.textContent = totalQuestions;
+  // 총 문제 수 설정
+  totalQuestionsElement.textContent = totalQuestions;
 
-function getRandomEvents() {
-  if (availableEvents.length < 2) {
-    endGame();
-    return;
-  }
-  const shuffled = availableEvents.sort(() => 0.5 - Math.random());
-  const event1 = shuffled[0];
-  const event2 = shuffled[1];
-  availableEvents = availableEvents.filter(event => event !== event1 && event !== event2);
-  return [event1, event2];
-}
-
-function updateQuestion() {
-  if (questionCount >= totalQuestions) {
-    endGame();
-    return;
+  function getRandomEvents() {
+    if (availableEvents.length < 2) {
+      endGame();
+      return;
+    }
+    const shuffled = availableEvents.sort(() => 0.5 - Math.random());
+    const event1 = shuffled[0];
+    const event2 = shuffled[1];
+    availableEvents = availableEvents.filter(event => event !== event1 && event !== event2);
+    return [event1, event2];
   }
 
-  const [event1, event2] = getRandomEvents();
+  function updateQuestion() {
+    if (questionCount >= totalQuestions) {
+      endGame();
+      return;
+    }
 
-  // 콘솔에 이미지 경로를 출력하여 이미지가 정상적으로 설정되는지 확인
-  console.log('Event 1 image path:', event1.image); // 첫 번째 이벤트 이미지 경로 출력
-  console.log('Event 2 image path:', event2.image); // 두 번째 이벤트 이미지 경로 출력
+    const [event1, event2] = getRandomEvents();
 
-  // 이미지 및 텍스트 업데이트
-  event1Image.src = event1.image;
-  event1Name.textContent = event1.name;
-  event2Image.src = event2.image;
-  event2Name.textContent = event2.name;
+    // 콘솔에 이미지 경로를 출력하여 이미지가 정상적으로 설정되는지 확인
+    console.log('Event 1 image path:', event1.image); // 첫 번째 이벤트 이미지 경로 출력
+    console.log('Event 2 image path:', event2.image); // 두 번째 이벤트 이미지 경로 출력
 
-  // 클릭 이벤트 설정
-  event1Image.onclick = () => checkAnswer(event1, event2);
-  event2Image.onclick = () => checkAnswer(event2, event1);
+    // 이미지 및 텍스트 업데이트
+    event1Image.src = event1.image;
+    event1Name.textContent = event1.name;
+    event2Image.src = event2.image;
+    event2Name.textContent = event2.name;
 
-  // 점수 및 문제 번호 업데이트
-  currentScoreElement.textContent = score;
-  currentQuestionElement.textContent = questionCount + 1; // 문제는 1부터 시작하므로 +1
+    // 클릭 이벤트 설정
+    event1Image.onclick = () => checkAnswer(event1, event2);
+    event2Image.onclick = () => checkAnswer(event2, event1);
 
-  questionCount++;
-}
+    // 점수 및 문제 번호 업데이트
+    currentScoreElement.textContent = score;
+    currentQuestionElement.textContent = questionCount + 1; // 문제는 1부터 시작하므로 +1
 
-function checkAnswer(older, newer) {
-  if (older.year < newer.year) {
-    score++;
-    console.log('Correct answer! Score:', score); // 정답일 때 점수 확인
-    document.body.classList.add('correct-answer');
-  } else {
-    console.log('Wrong answer!'); // 오답일 때 메시지 출력
-    document.body.classList.add('wrong-answer');
+    questionCount++;
   }
 
-  // 애니메이션이 끝난 후 클래스 제거 및 질문 업데이트
-  setTimeout(() => {
-    document.body.classList.remove('correct-answer');
-    document.body.classList.remove('wrong-answer');
-    updateQuestion(); // 여기서 이미지를 다시 업데이트
-  }, 500); // 0.5초 후에 애니메이션 제거 및 업데이트
-}
+  function checkAnswer(older, newer) {
+    if (older.year < newer.year) {
+      score++;
+      console.log('Correct answer! Score:', score); // 정답일 때 점수 확인
+      document.body.classList.add('correct-answer');
+    } else {
+      console.log('Wrong answer!'); // 오답일 때 메시지 출력
+      document.body.classList.add('wrong-answer');
+    }
 
-function endGame() {
-  // 게임 페이지 숨기고 결과 페이지 보여주기
-  gamePage.classList.add('hidden');
-  resultPage.classList.remove('hidden');
+    // 애니메이션이 끝난 후 클래스 제거 및 질문 업데이트
+    setTimeout(() => {
+      document.body.classList.remove('correct-answer');
+      document.body.classList.remove('wrong-answer');
+      updateQuestion(); // 여기서 이미지를 다시 업데이트
+    }, 500); // 0.5초 후에 애니메이션 제거 및 업데이트
+  }
 
-  // 최종 점수 표시
-  finalScoreElement.textContent = score;
-}
+  function endGame() {
+    // 게임 페이지 숨기고 결과 페이지 보여주기
+    gamePage.classList.add('hidden');
+    resultPage.classList.remove('hidden');
 
-// 게임 다시 시작
-restartButton.onclick = () => {
-  score = 0;
-  questionCount = 0;
-  availableEvents = [...events];
+    // 최종 점수 표시
+    finalScoreElement.textContent = score;
+  }
 
-  // 결과 페이지 숨기고 게임 페이지 보여주기
-  resultPage.classList.add('hidden');
-  gamePage.classList.remove('hidden');
+  // 게임 다시 시작
+  restartButton.onclick = () => {
+    score = 0;
+    questionCount = 0;
+    availableEvents = [...events];
 
-  // 게임 재시작
+    // 결과 페이지 숨기고 게임 페이지 보여주기
+    resultPage.classList.add('hidden');
+    gamePage.classList.remove('hidden');
+
+    // 게임 재시작
+    updateQuestion();
+  };
+
+  // 게임 시작
   updateQuestion();
-};
-
-// 게임 시작
-updateQuestion();
+});
