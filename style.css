@@ -61,7 +61,7 @@ body {
   font-size: 100px;
   color: white;
   position: absolute;
-  top: 30%;
+  top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 0; /* 기본적으로 연도는 안 보이게 */
