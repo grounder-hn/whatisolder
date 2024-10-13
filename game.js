@@ -30,6 +30,8 @@ const events = [
   { name: '신과함께', year: 2010, image: 'images/28.png' },
   { name: '상남2인조', year: 1991, image: 'images/29.png' },
   { name: '별은 내 가슴에. 안재욱', year: 1997, image: 'images/30.png' }
+  { name: '지폐 신권 발행', year: 2007, image: 'images/31.png' },
+  { name: '고구마언덕', year: 2002, image: 'images/32.png' }
 ];
 
 let availableEvents = [...events];
