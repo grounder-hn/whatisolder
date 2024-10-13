@@ -71,6 +71,7 @@ nextButton.onclick = () => {
 
 // 총 문제 수 설정
 totalQuestionsElement.textContent = totalQuestions;
+
 // 연도 초기화 및 선택된 스타일 리셋
 function resetStyles() {
   event1Image.style.opacity = 1;
@@ -111,6 +112,31 @@ function getRandomEvents() {
 
   return [event1, event2];
 }
+
+function updateQuestion() {
+  if (questionCount >= totalQuestions) {
+    endGame();
+    return;
+  }
+
+  const [event1, event2] = getRandomEvents();
+
+  event1Image.src = event1.image;
+  event1Name.textContent = event1.name;
+  event2Image.src = event2.image;
+  event2Name.textContent = event2.name;
+
+  // 클릭 이벤트 설정 (isAnswered 플래그 확인)
+  event1Image.onclick = () => { if (!isAnswered) checkAnswer(event1, event2); };
+  event2Image.onclick = () => { if (!isAnswered) checkAnswer(event2, event1); };
+
+  questionCount++;
+
+  // 현재 점수와 문제 번호 업데이트
+  currentScoreElement.textContent = score;
+  currentQuestionElement.textContent = questionCount;
+}
+
 function checkAnswer(older, newer) {
   isAnswered = true; // 정답을 한 번 선택하면 더 이상 클릭 불가능
 
@@ -149,26 +175,6 @@ function checkAnswer(older, newer) {
     body.classList.remove('correct-answer', 'wrong-answer');
   }, 1500);  // 1.5초 후 배경색 효과 제거
 }
-function updateQuestion() {
-  if (questionCount >= totalQuestions) {
-    endGame();
-    return;
-  }
-  const [event1, event2] = getRandomEvents();
-
-  console.log('Event 1 Image:', event1.image);  // 이미지 경로 출력
-  console.log('Event 2 Image:', event2.image);  // 이미지 경로 출력
-
-  event1Image.src = event1.image;
-  event1Name.textContent = event1.name;
-  event2Image.src = event2.image;
-  event2Name.textContent = event2.name;
-
-  // 클릭 이벤트 설정 (isAnswered 플래그 확인)
-  event1Image.onclick = () => { if (!isAnswered) checkAnswer(event1, event2); };
-  event2Image.onclick = () => { if (!isAnswered) checkAnswer(event2, event1); };
-
-  questionCount++;
 
 function endGame() {
   // 게임 페이지 숨기고 결과 페이지 보여주기
@@ -230,8 +236,3 @@ function showRanking() {
 // 게임 시작
 updateQuestion();
 showRanking(); // 페이지가 로드될 때 랭킹 표시
-
-window.onload = function() {
-  updateQuestion();
-};
-
