@@ -137,7 +137,6 @@ function checkAnswer(older, newer, selectedYear, otherYear) {
   } else {
     body.classList.add('wrong-answer');
   }
-
   // 버튼을 표시하고, 마지막 문제일 경우 '결과 보기'로 변경
   nextButton.textContent = (questionCount === totalQuestions) ? '결과 보기' : '다음 문제';
   nextButton.style.display = 'block';
@@ -146,13 +145,15 @@ function checkAnswer(older, newer, selectedYear, otherYear) {
     body.classList.remove('correct-answer', 'wrong-answer');
   }, 1500);  // 1.5초 후 배경색 효과 제거
 }
-
 function endGame() {
+  // 게임 페이지 숨기고 결과 페이지 보여주기
   gamePage.classList.add('hidden');
   resultPage.classList.remove('hidden');
+
+  // 최종 점수 표시
   finalScoreElement.textContent = score;
 }
-
+// 게임 다시 시작
 restartButton.onclick = () => {
   score = 0;
   questionCount = 0;
@@ -160,8 +161,11 @@ restartButton.onclick = () => {
 
   resultPage.classList.add('hidden');
   gamePage.classList.remove('hidden');
+
+  // 게임 재시작
   updateQuestion();
 };
+
 // 점수 제출
 submitScoreButton.onclick = () => {
   const playerName = playerNameInput.value.trim();
