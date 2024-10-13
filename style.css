@@ -40,7 +40,7 @@ body {
 }
 
 .event-image {
-  width: 700px; /* 모니터 이미지 크기 */
+  width: 600px; /* 모니터 이미지 크기 */
   height: auto;
   transition: background-color 0.3s, color 0.3s;
 }
