@@ -81,13 +81,18 @@ function updateQuestion() {
     return;
   }
 
+  // 기존 연도 요소 삭제
+  const existingYears = document.querySelectorAll('.event-year');
+  existingYears.forEach(year => year.remove());
+
   const [event1, event2] = getRandomEvents();
 
   event1Image.src = event1.image;
   event1Name.textContent = event1.name;
   event2Image.src = event2.image;
   event2Name.textContent = event2.name;
-    // 연도 요소 추가
+
+  // 새로운 연도 요소 추가
   const event1Year = document.createElement('div');
   event1Year.textContent = event1.year;
   event1Year.classList.add('event-year');
@@ -98,6 +103,7 @@ function updateQuestion() {
   event1Image.after(event1Year);
   event2Image.after(event2Year);
 
+  // 이미지와 연도를 다시 초기화
   event1Image.parentElement.classList.remove('selected');
   event2Image.parentElement.classList.remove('selected');
 
@@ -105,8 +111,6 @@ function updateQuestion() {
   event2Image.onclick = () => checkAnswer(event2, event1, event2Year, event1Year);
 
   questionCount++;
-
-  // 현재 점수와 문제 번호 업데이트
   currentScoreElement.textContent = score;
   currentQuestionElement.textContent = questionCount;
 }
