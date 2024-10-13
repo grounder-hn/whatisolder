@@ -30,7 +30,6 @@ const events = [
   { name: '신과함께', year: 2010, image: 'images/28.png' },
   { name: '상남2인조', year: 1991, image: 'images/29.png' },
   { name: '별은 내 가슴에. 안재욱', year: 1997, image: 'images/30.png' }
-
 ];
 
 let availableEvents = [...events];
@@ -74,6 +73,10 @@ function updateQuestion() {
 
   const [event1, event2] = getRandomEvents();
 
+  // 콘솔에 이미지 경로를 출력하여 이미지가 정상적으로 설정되는지 확인
+  console.log('Event 1 image path:', event1.image); // 첫 번째 이벤트 이미지 경로 출력
+  console.log('Event 2 image path:', event2.image); // 두 번째 이벤트 이미지 경로 출력
+
   // 이미지 및 텍스트 업데이트
   event1Image.src = event1.image;
   event1Name.textContent = event1.name;
@@ -94,10 +97,10 @@ function updateQuestion() {
 function checkAnswer(older, newer) {
   if (older.year < newer.year) {
     score++;
-    // 정답 애니메이션 적용
+    console.log('Correct answer! Score:', score); // 정답일 때 점수 확인
     document.body.classList.add('correct-answer');
   } else {
-    // 오답 애니메이션 적용
+    console.log('Wrong answer!'); // 오답일 때 메시지 출력
     document.body.classList.add('wrong-answer');
   }
 
