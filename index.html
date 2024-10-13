@@ -1,42 +1,31 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>어떤게 더 옛날일까?</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>어떤게 더 옛날일까?</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="game-page">
-        <div>
-            <h1>어떤게 더 옛날일까?</h1>
-            <p>현재 점수: <span id="currentScore">0</span></p>
-            <p>현재 문제: <span id="currentQuestion">1</span> / <span id="totalQuestions">15</span></p>
-        </div>
+  <div class="score-board">
+    <p>현재 점수: <span id="currentScore">0</span></p>
+    <p>현재 문제: <span id="currentQuestion">1</span> / <span id="totalQuestions">15</span></p>
+  </div>
 
-        <!-- 이미지 선택 영역 -->
-        <div id="event-container">
-            <div class="event">
-                <img id="event1Image" src="" alt="Event 1" width="300">
-                <p id="event1Name"></p>
-            </div>
-
-            <p>VS</p>
-
-            <div class="event">
-                <img id="event2Image" src="" alt="Event 2" width="300">
-                <p id="event2Name"></p>
-            </div>
-        </div>
+  <div class="container">
+    <div class="monitor-container">
+      <img id="event1Image" class="event-image" src="" alt="Event 1">
+      <p class="event-name" id="event1Name"></p>
     </div>
 
-    <!-- 결과 페이지 -->
-    <div id="result-page" class="hidden">
-        <h2>게임 종료!</h2>
-        <p>최종 점수: <span id="finalScore">0</span></p>
-        <button id="restartButton">다시하기</button>
-    </div>
+    <p class="vs-text">VS</p>
 
-    <script src="game.js"></script>
+    <div class="monitor-container">
+      <img id="event2Image" class="event-image" src="" alt="Event 2">
+      <p class="event-name" id="event2Name"></p>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
 </body>
 </html>
