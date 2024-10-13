@@ -38,11 +38,21 @@ body {
 .monitor-container {
   text-align: center;
   margin: 0 40px;
+  transition: background-color 0.3s, color 0.3s; /* 호버 효과 추가 */
+}
+
+/* 이미지와 텍스트의 호버 효과를 부모 요소에 적용 */
+.monitor-container:hover .event-image,
+.monitor-container:hover .event-name {
+  background-color: #00ff00; /* 이미지와 텍스트에 적용되는 녹색 배경 */
+  color: #1e1e1e; /* 이미지와 텍스트에 어두운 글자색 */
+  border-radius: 5px;
 }
 
 .event-image {
   width: 700px; /* 모니터 이미지 크기 */
   height: auto;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .event-name {
@@ -53,8 +63,8 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* 마우스 호버 시 녹색 박스와 어두운 글자색 */
-.event-name:hover {
+/* 마우스 호버 시 텍스트의 녹색 박스와 어두운 글자색 */
+.monitor-container:hover .event-name {
   background-color: #00ff00; /* 녹색 배경 */
   color: #1e1e1e; /* 어두운 글자 */
   border-radius: 5px; /* 테두리 둥글게 */
@@ -65,6 +75,7 @@ body {
   color: white;
   margin: 0 20px;
 }
+
 .hidden {
   display: none;
 }
