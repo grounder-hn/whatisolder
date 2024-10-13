@@ -62,6 +62,7 @@ document.body.appendChild(nextButton);  // 버튼을 body에 추가
 nextButton.onclick = () => {
   nextButton.style.display = 'none';  // 버튼 숨기기
   resetStyles();  // 스타일 초기화
+  isAnswered = false;  // 문제를 다시 클릭할 수 있게 플래그 초기화
   updateQuestion();  // 다음 질문으로 이동
 };
 
@@ -120,8 +121,9 @@ function updateQuestion() {
   event2Image.src = event2.image;
   event2Name.textContent = event2.name;
 
-  event1Image.onclick = () => checkAnswer(event1, event2);
-  event2Image.onclick = () => checkAnswer(event2, event1);
+  // 클릭 이벤트 설정 (isAnswered 플래그 확인)
+  event1Image.onclick = () => { if (!isAnswered) checkAnswer(event1, event2); };
+  event2Image.onclick = () => { if (!isAnswered) checkAnswer(event2, event1); };
 
   questionCount++;
 
@@ -131,6 +133,8 @@ function updateQuestion() {
 }
 
 function checkAnswer(older, newer) {
+  isAnswered = true; // 정답을 한 번 선택하면 더 이상 클릭 불가능
+
   // 선택된 이미지의 연도 표시 및 투명도 적용
   const event1Year = document.createElement('div');
   event1Year.className = 'event-year';
@@ -152,6 +156,7 @@ function checkAnswer(older, newer) {
 
   if (older.year < newer.year) {
     score++;
+    currentScoreElement.textContent = score;  // 정답 시 즉시 점수 업데이트
     body.classList.add('correct-answer');
   } else {
     body.classList.add('wrong-answer');
