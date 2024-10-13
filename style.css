@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'NeoDGM';
-  src: url('fonts/neodgm.woff2') format('woff2'),
-       url('fonts/neodgm.woff') format('woff');
+  src: url('font/neodgm.woff2') format('woff2'),
+       url('font/neodgm.woff') format('woff');
 }
 
 body {
