@@ -4,29 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>어떤게 더 옛날일까?</title>
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; }
-    .question { margin: 20px; font-size: 24px; }
-    .choices { margin: 20px; }
-    .score { margin-top: 30px; font-size: 20px; }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>어떤게 더 옛날일까?</h1>
   <div id="game">
     <div class="question">
-      <p id="event1"></p>
+      <button id="event1Button" class="event-button"></button>
       <p>VS</p>
-      <p id="event2"></p>
-    </div>
-    <div class="choices">
-      <button id="chooseEvent1">첫번째가 더 옛날</button>
-      <button id="chooseEvent2">두번째가 더 옛날</button>
+      <button id="event2Button" class="event-button"></button>
     </div>
     <div class="score">
       <p>현재 점수: <span id="score">0</span></p>
     </div>
+    <div id="timer"></div>
   </div>
+
+  <div id="result" class="hidden">
+    <h2>게임 종료</h2>
+    <p>최종 점수: <span id="finalScore"></span></p>
+    <p>랭킹에 이름을 남겨보세요:</p>
+    <input type="text" id="username" placeholder="이름 입력">
+    <button id="submitScore">랭킹 등록</button>
+    <div id="rankingList"></div>
+    <button id="restart">다시하기</button>
+  </div>
+
   <script src="game.js"></script>
 </body>
 </html>
