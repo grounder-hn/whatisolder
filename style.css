@@ -41,14 +41,14 @@ body {
 }
 
 .event-image {
-  width: 300px; /* 모니터 이미지 크기 */
+  width: 700px; /* 모니터 이미지 크기 */
   height: auto;
 }
 
 .event-name {
   color: #00ff00; /* 기본 녹색 텍스트 */
   margin-top: 10px;
-  font-size: 24px;
+  font-size: 30px;
   padding: 5px;
   transition: background-color 0.3s, color 0.3s;
 }
@@ -61,7 +61,7 @@ body {
 }
 
 .vs-text {
-  font-size: 40px;
+  font-size: 60px;
   color: white;
   margin: 0 20px;
 }
