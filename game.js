@@ -32,16 +32,58 @@ const events = [
   { name: '별은 내 가슴에. 안재욱', year: 1997, image: 'images/30.png' }
 ];
 
-let availableEvents = [...events];
+// availableEvents를 events 배열로 초기화 (중복 방지용)
+let availableEvents = [...events];  // 여기서 availableEvents를 선언 및 초기화
+
 let score = 0;
 let questionCount = 0;
 const totalQuestions = 15;
 
-// DOM 요소 참조
 const event1Image = document.getElementById('event1Image');
 const event2Image = document.getElementById('event2Image');
 const event1Name = document.getElementById('event1Name');
 const event2Name = document.getElementById('event2Name');
-const currentScoreElement = document.getElementById('currentScore');
-const currentQuestionElement = document.getElementById('currentQuestion');
-const
+
+function getRandomEvents() {
+  if (availableEvents.length < 2) {
+    endGame();
+    return;
+  }
+  const shuffled = availableEvents.sort(() => 0.5 - Math.random());
+  const event1 = shuffled[0];
+  const event2 = shuffled[1];
+  availableEvents = availableEvents.filter(event => event !== event1 && event !== event2);
+  return [event1, event2];
+}
+
+function updateQuestion() {
+  if (questionCount >= totalQuestions) {
+    endGame();
+    return;
+  }
+
+  const [event1, event2] = getRandomEvents();
+
+  event1Image.src = event1.image;
+  event1Name.textContent = event1.name;
+  event2Image.src = event2.image;
+  event2Name.textContent = event2.name;
+
+  event1Image.onclick = () => checkAnswer(event1, event2);
+  event2Image.onclick = () => checkAnswer(event2, event1);
+
+  questionCount++;
+}
+
+function checkAnswer(older, newer) {
+  if (older.year < newer.year) {
+    score++;
+  }
+  updateQuestion();
+}
+
+function endGame() {
+  alert(`게임 종료! 최종 점수: ${score}`);
+}
+
+updateQuestion();
