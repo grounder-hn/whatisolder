@@ -13,10 +13,9 @@ body {
 }
 
 .event-image {
-  width: 700px;
+  width: 500px; /* 이미지 크기를 줄여 화면에 맞추기 */
   height: auto;
-  position: relative;
-  transition: opacity 0.3s; /* 이미지의 투명도 변화 */
+  transition: opacity 0.3s;
 }
 
 .event-year {
@@ -34,8 +33,7 @@ body {
 .monitor-container {
   position: relative;
   text-align: center;
-  margin: 0 40px;
-  cursor: pointer;
+  margin: 0 20px; /* 마진 크기를 줄여 이미지를 중앙으로 */
 }
 
 .monitor-container.selected .event-image {
