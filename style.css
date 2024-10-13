@@ -65,3 +65,10 @@ body {
   color: white;
   margin: 0 20px;
 }
+.hidden {
+  display: none;
+}
+
+#result-page {
+  text-align: center;
+}
