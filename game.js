@@ -48,9 +48,10 @@ const totalQuestionsElement = document.getElementById('totalQuestions');
 const finalScoreElement = document.getElementById('finalScore');
 const gamePage = document.getElementById('game-page');
 const resultPage = document.getElementById('result-page');
-const nextButton = document.createElement('button');  // '다음 문제' 버튼 동적 생성
 const restartButton = document.getElementById('restartButton');
-const body = document.body;
+const submitScoreButton = document.getElementById('submitScore');
+const playerNameInput = document.getElementById('playerName');
+const rankingList = document.getElementById('rankingList');
 
 nextButton.id = 'nextButton';
 nextButton.textContent = '다음 문제';
@@ -172,5 +173,40 @@ restartButton.onclick = () => {
   gamePage.classList.remove('hidden');
   updateQuestion();
 };
+// 점수 제출
+submitScoreButton.onclick = () => {
+  const playerName = playerNameInput.value.trim();
+  if (playerName) {
+    saveScore(playerName, score);
+    showRanking();
+    playerNameInput.value = ''; // 이름 입력 필드 초기화
+  }
+};
 
+// 점수 저장 함수 (localStorage에 저장)
+function saveScore(name, score) {
+  const scores = JSON.parse(localStorage.getItem('scores')) || [];
+  scores.push({ name, score });
+  
+  // 점수를 내림차순으로 정렬 후 상위 20명만 유지
+  scores.sort((a, b) => b.score - a.score);
+  const topScores = scores.slice(0, 20);
+
+  localStorage.setItem('scores', JSON.stringify(topScores));
+}
+
+// 랭킹 표시 함수
+function showRanking() {
+  const scores = JSON.parse(localStorage.getItem('scores')) || [];
+  rankingList.innerHTML = ''; // 기존 랭킹 초기화
+
+  scores.forEach((score, index) => {
+    const li = document.createElement('li');
+    li.textContent = `${index + 1}. ${score.name}: ${score.score}점`;
+    rankingList.appendChild(li);
+  });
+}
+
+// 게임 시작
 updateQuestion();
+showRanking(); // 페이지가 로드될 때 랭킹 표시
