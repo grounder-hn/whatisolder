@@ -9,13 +9,11 @@ const events = [
     { name: '베를린 장벽 붕괴', year: 1989 },
     { name: '유로화 도입', year: 1999 },
     { name: '인터넷 발명', year: 1983 }
-    // 더 많은 사건 추가 가능
   ];
   
   let score = 0;
   let questionCount = 0;
-  let availableEvents = [...events];
-  const totalQuestions = 5;
+  const totalQuestions = 5;  // 총 문제 수
   
   // DOM 요소
   const event1Button = document.getElementById('event1Button');
@@ -26,27 +24,42 @@ const events = [
   const gamePage = document.getElementById('game');
   const rankingList = document.getElementById('rankingList');
   
+  // 남은 사건 배열
+  let availableEvents = [...events];
+  
   // 중복 방지 및 랜덤 선택
   function getRandomEvents() {
-    availableEvents = availableEvents.filter(event => !event.used);
+    // 남은 사건이 2개 미만일 경우 처리
+    if (availableEvents.length < 2) {
+      endGame();
+      return;
+    }
+  
     const shuffled = availableEvents.sort(() => 0.5 - Math.random());
     const event1 = shuffled[0];
     const event2 = shuffled[1];
-    event1.used = true;
-    event2.used = true;
+  
+    // 사용된 사건을 배열에서 제거
+    availableEvents = availableEvents.filter(event => event !== event1 && event !== event2);
+  
     return [event1, event2];
   }
   
   function updateQuestion() {
+    // 총 문제 수를 초과하면 게임 종료
     if (questionCount >= totalQuestions) {
       endGame();
       return;
     }
   
-    const [event1, event2] = getRandomEvents();
+    const eventsPair = getRandomEvents();
+    if (!eventsPair) return;  // 사건이 부족할 경우 함수 종료
+  
+    const [event1, event2] = eventsPair;
     event1Button.textContent = event1.name;
     event2Button.textContent = event2.name;
   
+    // 정답 선택 시 처리
     event1Button.onclick = () => checkAnswer(event1, event2);
     event2Button.onclick = () => checkAnswer(event2, event1);
   
@@ -88,7 +101,7 @@ const events = [
   document.getElementById('restart').onclick = () => {
     score = 0;
     questionCount = 0;
-    availableEvents = [...events]; // 사용한 이벤트 초기화
+    availableEvents = [...events];  // 사용한 사건 초기화
     scoreElement.textContent = score;
     resultPage.classList.add('hidden');
     gamePage.classList.remove('hidden');
