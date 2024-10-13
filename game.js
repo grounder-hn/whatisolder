@@ -32,6 +32,9 @@ const events = [
   { name: '별은 내 가슴에. 안재욱', year: 1997, image: 'images/30.png' }
 ];
 
+// availableEvents를 events 배열로 초기화 (중복 방지용)
+let availableEvents = [...events];  // 여기서 availableEvents를 선언 및 초기화
+
 let score = 0;
 let questionCount = 0;
 const totalQuestions = 15;
