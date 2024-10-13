@@ -8,78 +8,76 @@
 }
 
 body {
-  background-color: #1e1e1e; /* 어두운 배경 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100vh;
-  margin: 0;
-  font-family: 'NeoDGM', sans-serif;
-  color: white;
-}
-
-.score-board {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.score-board p {
-  font-size: 18px;
-  margin: 5px;
-}
-
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.monitor-container {
-  text-align: center;
-  margin: 0 40px;
-  transition: background-color 0.3s, color 0.3s; /* 호버 효과 추가 */
-}
-
-/* 이미지와 텍스트의 호버 효과를 부모 요소에 적용 */
-.monitor-container:hover .event-image,
-.monitor-container:hover .event-name {
-  background-color: #00ff00; /* 이미지와 텍스트에 적용되는 녹색 배경 */
-  color: #1e1e1e; /* 이미지와 텍스트에 어두운 글자색 */
-  border-radius: 5px;
+  background-color: #1e1e1e; /* 기본 배경색 */
+  transition: background-color 0.3s; /* 배경색 변화를 부드럽게 */
 }
 
 .event-image {
-  width: 700px; /* 모니터 이미지 크기 */
+  width: 700px;
   height: auto;
-  transition: background-color 0.3s, color 0.3s;
+  position: relative;
+  transition: opacity 0.3s; /* 이미지의 투명도 변화 */
 }
 
-.event-name {
-  color: #00ff00; /* 기본 녹색 텍스트 */
-  margin-top: 10px;
-  font-size: 30px;
-  padding: 5px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-/* 마우스 호버 시 텍스트의 녹색 박스와 어두운 글자색 */
-.monitor-container:hover .event-name {
-  background-color: #00ff00; /* 녹색 배경 */
-  color: #1e1e1e; /* 어두운 글자 */
-  border-radius: 5px; /* 테두리 둥글게 */
-}
-
-.vs-text {
-  font-size: 60px;
+.event-year {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
   color: white;
-  margin: 0 20px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none; /* 텍스트 클릭 불가 */
 }
 
-.hidden {
-  display: none;
-}
-
-#result-page {
+.monitor-container {
+  position: relative;
   text-align: center;
+  margin: 0 40px;
+  cursor: pointer;
+}
+
+.monitor-container.selected .event-image {
+  opacity: 0.5; /* 선택 시 이미지 투명도 */
+}
+
+.monitor-container.selected .event-year {
+  opacity: 1; /* 선택 시 연도 표시 */
+}
+
+/* 정답일 경우 배경색이 초록색으로 깜빡임 */
+.correct-answer {
+  animation: blink-green 0.5s alternate 3;
+}
+
+@keyframes blink-green {
+  0% { background-color: #1e1e1e; }
+  100% { background-color: #00ff00; }
+}
+
+/* 오답일 경우 배경색이 빨간색으로 깜빡임 */
+.wrong-answer {
+  animation: blink-red 0.5s alternate 3;
+}
+
+@keyframes blink-red {
+  0% { background-color: #1e1e1e; }
+  100% { background-color: #ff0000; }
+}
+
+#nextButton {
+  display: none; /* 처음에는 숨겨진 상태 */
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#nextButton:hover {
+  background-color: #45a049;
 }
