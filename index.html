@@ -12,7 +12,7 @@
     <p>현재 문제: <span id="currentQuestion">1</span> / <span id="totalQuestions">15</span></p>
   </div>
 
-  <div class="container">
+  <div id="game-page" class="container">
     <div class="monitor-container">
       <img id="event1Image" class="event-image" src="" alt="Event 1">
       <p class="event-name" id="event1Name"></p>
@@ -24,6 +24,12 @@
       <img id="event2Image" class="event-image" src="" alt="Event 2">
       <p class="event-name" id="event2Name"></p>
     </div>
+  </div>
+
+  <div id="result-page" class="hidden">
+    <h2>게임 종료!</h2>
+    <p>최종 점수: <span id="finalScore"></span></p>
+    <button id="restartButton">다시 하기</button>
   </div>
 
   <script src="game.js"></script>
