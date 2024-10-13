@@ -37,16 +37,19 @@ let score = 0;
 let questionCount = 0;
 const totalQuestions = 15;
 
+// DOM 요소 참조
 const event1Image = document.getElementById('event1Image');
 const event2Image = document.getElementById('event2Image');
 const event1Name = document.getElementById('event1Name');
 const event2Name = document.getElementById('event2Name');
 const currentScoreElement = document.getElementById('currentScore');
 const currentQuestionElement = document.getElementById('currentQuestion');
+const totalQuestionsElement = document.getElementById('totalQuestions');
 const finalScoreElement = document.getElementById('finalScore');
 const gamePage = document.getElementById('game-page');
 const resultPage = document.getElementById('result-page');
 const nextButton = document.createElement('button');  // '다음 문제' 버튼 동적 생성
+const restartButton = document.getElementById('restartButton');
 const body = document.body;
 
 nextButton.id = 'nextButton';
@@ -57,7 +60,7 @@ nextButton.onclick = () => {
   nextButton.style.display = 'none';  // 버튼 숨기기
   updateQuestion();  // 다음 질문으로 이동
 };
-
+// 총 문제 수 설정
 totalQuestionsElement.textContent = totalQuestions;
 
 function getRandomEvents() {
@@ -84,8 +87,7 @@ function updateQuestion() {
   event1Name.textContent = event1.name;
   event2Image.src = event2.image;
   event2Name.textContent = event2.name;
-
-  // 연도 요소 추가
+    // 연도 요소 추가
   const event1Year = document.createElement('div');
   event1Year.textContent = event1.year;
   event1Year.classList.add('event-year');
@@ -103,6 +105,8 @@ function updateQuestion() {
   event2Image.onclick = () => checkAnswer(event2, event1, event2Year, event1Year);
 
   questionCount++;
+
+  // 현재 점수와 문제 번호 업데이트
   currentScoreElement.textContent = score;
   currentQuestionElement.textContent = questionCount;
 }
