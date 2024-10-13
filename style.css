@@ -1,17 +1,23 @@
-@font-face {
-  font-family: 'NeoDGM';
-  src: url('font/neodgm.woff2') format('woff2'),
-       url('font/neodgm.woff') format('woff');
-}
-
 body {
   background-color: #1e1e1e; /* 어두운 배경 */
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 100vh;
   margin: 0;
-  font-family: 'NeoDGM', sans-serif; /* 네오둠 폰트 */
+  font-family: 'NeoDGM', sans-serif;
+  color: white;
+}
+
+.score-board {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.score-board p {
+  font-size: 18px;
+  margin: 5px;
 }
 
 .container {
