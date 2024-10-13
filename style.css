@@ -5,7 +5,7 @@
 }
 
 body {
-  background-color: #1e1e1e; /* 어두운 배경 */
+  background-color: #1e1e1e;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,18 +43,17 @@ body {
 }
 
 .event-name {
-  color: #00ff00; /* 기본 녹색 텍스트 */
+  color: #00ff00;
   margin-top: 10px;
   font-size: 24px;
   padding: 5px;
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* 마우스 호버 시 녹색 박스와 어두운 글자색 */
 .event-name:hover {
-  background-color: #00ff00; /* 녹색 배경 */
-  color: #1e1e1e; /* 어두운 글자 */
-  border-radius: 5px; /* 테두리 둥글게 */
+  background-color: #00ff00;
+  color: #1e1e1e;
+  border-radius: 5px;
 }
 
 .vs-text {
@@ -62,3 +61,38 @@ body {
   color: white;
   margin: 0 20px;
 }
+
+/* 정답 애니메이션 */
+.correct-answer {
+  animation: correctAnimation 0.5s;
+}
+
+@keyframes correctAnimation {
+  0% {
+    background-color: #1e1e1e;
+  }
+  50% {
+    background-color: #00ff00;
+  }
+  100% {
+    background-color: #1e1e1e;
+  }
+}
+
+/* 오답 애니메이션 */
+.wrong-answer {
+  animation: wrongAnimation 0.5s;
+}
+
+@keyframes wrongAnimation {
+  0% {
+    background-color: #1e1e1e;
+  }
+  50% {
+    background-color: #ff0000;
+  }
+  100% {
+    background-color: #1e1e1e;
+  }
+}
+
