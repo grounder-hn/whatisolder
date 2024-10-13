@@ -34,7 +34,7 @@ const events = [
 
 let score = 0;
 let questionCount = 0;
-const totalQuestions = 5;  // 총 문제 수
+const totalQuestions = 15;  // 총 문제 수를 15로 설정
 
 // DOM 요소
 const event1Button = document.getElementById('event1Button');
