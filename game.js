@@ -52,7 +52,17 @@ const restartButton = document.getElementById('restartButton');
 const submitScoreButton = document.getElementById('submitScore');
 const playerNameInput = document.getElementById('playerName');
 const rankingList = document.getElementById('rankingList');
+const nextButton = document.createElement('button');  // '다음 문제' 버튼 동적 생성
+const body = document.body;
 
+nextButton.id = 'nextButton';
+nextButton.textContent = '다음 문제';
+document.body.appendChild(nextButton);  // 버튼을 body에 추가
+
+nextButton.onclick = () => {
+  nextButton.style.display = 'none';  // 버튼 숨기기
+  updateQuestion();  // 다음 질문으로 이동
+};
 // 총 문제 수 설정
 totalQuestionsElement.textContent = totalQuestions;
 
@@ -106,11 +116,24 @@ function updateQuestion() {
   currentQuestionElement.textContent = questionCount;
 }
 
-function checkAnswer(older, newer) {
+function checkAnswer(older, newer, selectedYear, otherYear) {
+  event1Image.parentElement.classList.add('selected');
+  event2Image.parentElement.classList.add('selected');
+
   if (older.year < newer.year) {
     score++;
+    body.classList.add('correct-answer');
+  } else {
+    body.classList.add('wrong-answer');
   }
-  updateQuestion();
+
+  // 버튼을 표시하고, 마지막 문제일 경우 '결과 보기'로 변경
+  nextButton.textContent = (questionCount === totalQuestions) ? '결과 보기' : '다음 문제';
+  nextButton.style.display = 'block';
+
+  setTimeout(() => {
+    body.classList.remove('correct-answer', 'wrong-answer');
+  }, 1500);  // 1.5초 후 배경색 효과 제거
 }
 
 function endGame() {
