@@ -1,98 +1,68 @@
+/* neodgm 폰트 불러오기 */
 @font-face {
-  font-family: 'NeoDGM';
-  src: url('fonts/neodgm.woff2') format('woff2'),
-       url('fonts/neodgm.woff') format('woff');
+    font-family: 'neodgm';
+    src: url('./fonts/neodgm.woff2') format('woff2'),
+         url('./fonts/neodgm.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 body {
-  background-color: #1e1e1e;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100vh;
-  margin: 0;
-  font-family: 'NeoDGM', sans-serif;
-  color: white;
+    font-family: 'neodgm', Arial, sans-serif; /* 기본 폰트를 neodgm으로 설정 */
+    text-align: center;
+    background-color: #f5f5f5;
 }
 
-.score-board {
-  text-align: center;
-  margin-bottom: 20px;
+#event-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
 }
 
-.score-board p {
-  font-size: 18px;
-  margin: 5px;
+.event {
+    margin: 20px;
 }
 
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+h1 {
+    color: #333;
 }
 
-.monitor-container {
-  text-align: center;
-  margin: 0 40px;
+p {
+    font-size: 18px;
 }
 
-.event-image {
-  width: 300px; /* 모니터 이미지 크기 */
-  height: auto;
+img {
+    border: 2px solid #ccc;
+    border-radius: 8px;
 }
 
-.event-name {
-  color: #00ff00;
-  margin-top: 10px;
-  font-size: 24px;
-  padding: 5px;
-  transition: background-color 0.3s, color 0.3s;
+#result-page {
+    display: none;
 }
 
-.event-name:hover {
-  background-color: #00ff00;
-  color: #1e1e1e;
-  border-radius: 5px;
+.hidden {
+    display: none;
 }
 
-.vs-text {
-  font-size: 40px;
-  color: white;
-  margin: 0 20px;
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
 }
 
-/* 정답 애니메이션 */
-.correct-answer {
-  animation: correctAnimation 0.5s;
+button:hover {
+    background-color: #45a049;
 }
 
-@keyframes correctAnimation {
-  0% {
-    background-color: #1e1e1e;
-  }
-  50% {
-    background-color: #00ff00;
-  }
-  100% {
-    background-color: #1e1e1e;
-  }
+#game-page {
+    margin-top: 50px;
 }
 
-/* 오답 애니메이션 */
-.wrong-answer {
-  animation: wrongAnimation 0.5s;
+#currentScore, #currentQuestion {
+    font-weight: bold;
 }
-
-@keyframes wrongAnimation {
-  0% {
-    background-color: #1e1e1e;
-  }
-  50% {
-    background-color: #ff0000;
-  }
-  100% {
-    background-color: #1e1e1e;
-  }
-}
-
