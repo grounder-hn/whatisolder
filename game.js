@@ -14,7 +14,7 @@ const events = [
   { name: '한일 월드컵', year: 2002, image: 'images/12.png' },
   { name: '리그 오브 레전드', year: 2011, image: 'images/13.png' },
   { name: '불닭볶음면', year: 2012, image: 'images/14.png' },
-  { name: '비틀즈 Let it Be', year: 1970, image: 'images/015.png' },
+  { name: '비틀즈 Let it Be', year: 1970, image: 'images/15.png' },
   { name: '대부(The Godfather)1', year: 1973, image: 'images/16.png' },
   { name: '스키니진', year: 2000, image: 'images/17.png' },
   { name: '짬', year: 2005, image: 'images/18.png' },
