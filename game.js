@@ -32,17 +32,22 @@ const events = [
   { name: '별은 내 가슴에. 안재욱', year: 1997, image: 'images/30.png' }
 ];
 
-// availableEvents를 events 배열로 초기화 (중복 방지용)
-let availableEvents = [...events];  // 여기서 availableEvents를 선언 및 초기화
-
+let availableEvents = [...events];
 let score = 0;
 let questionCount = 0;
 const totalQuestions = 15;
 
+// DOM 요소 참조
 const event1Image = document.getElementById('event1Image');
 const event2Image = document.getElementById('event2Image');
 const event1Name = document.getElementById('event1Name');
 const event2Name = document.getElementById('event2Name');
+const currentScoreElement = document.getElementById('currentScore');
+const currentQuestionElement = document.getElementById('currentQuestion');
+const totalQuestionsElement = document.getElementById('totalQuestions');
+
+// 총 문제 수 설정
+totalQuestionsElement.textContent = totalQuestions;
 
 function getRandomEvents() {
   if (availableEvents.length < 2) {
@@ -73,6 +78,10 @@ function updateQuestion() {
   event2Image.onclick = () => checkAnswer(event2, event1);
 
   questionCount++;
+
+  // 현재 점수와 문제 번호 업데이트
+  currentScoreElement.textContent = score;
+  currentQuestionElement.textContent = questionCount;
 }
 
 function checkAnswer(older, newer) {
@@ -86,4 +95,5 @@ function endGame() {
   alert(`게임 종료! 최종 점수: ${score}`);
 }
 
+// 게임 시작
 updateQuestion();
