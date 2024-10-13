@@ -8,61 +8,51 @@
 }
 
 body {
-    font-family: 'neodgm', Arial, sans-serif; /* 기본 폰트를 neodgm으로 설정 */
-    text-align: center;
-    background-color: #f5f5f5;
+  background-color: #1e1e1e; /* 어두운 배경 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  font-family: 'NeoDGM', sans-serif;
+  color: white;
 }
 
-#event-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
+.score-board {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.event {
-    margin: 20px;
+.score-board p {
+  font-size: 18px;
+  margin: 5px;
 }
 
-h1 {
-    color: #333;
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-p {
-    font-size: 18px;
+.monitor-container {
+  text-align: center;
+  margin: 0 40px;
 }
 
-img {
-    border: 2px solid #ccc;
-    border-radius: 8px;
+.event-image {
+  width: 300px; /* 모니터 이미지 크기 */
+  height: auto;
 }
 
-#result-page {
-    display: none;
+.event-name {
+  color: #00ff00; /* 녹색 텍스트 */
+  margin-top: 10px;
+  font-size: 24px;
 }
 
-.hidden {
-    display: none;
-}
-
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-#game-page {
-    margin-top: 50px;
-}
-
-#currentScore, #currentQuestion {
-    font-weight: bold;
+.vs-text {
+  font-size: 40px;
+  color: white;
+  margin: 0 20px;
 }
