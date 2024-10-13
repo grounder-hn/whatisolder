@@ -44,4 +44,135 @@ const event1Name = document.getElementById('event1Name');
 const event2Name = document.getElementById('event2Name');
 const currentScoreElement = document.getElementById('currentScore');
 const currentQuestionElement = document.getElementById('currentQuestion');
-const
+const totalQuestionsElement = document.getElementById('totalQuestions');
+const finalScoreElement = document.getElementById('finalScore');
+const gamePage = document.getElementById('game-page');
+const resultPage = document.getElementById('result-page');
+const nextButton = document.createElement('button');  // '다음 문제' 버튼 동적 생성
+const restartButton = document.getElementById('restartButton');
+const body = document.body;
+
+nextButton.id = 'nextButton';
+nextButton.textContent = '다음 문제';
+document.body.appendChild(nextButton);  // 버튼을 body에 추가
+
+nextButton.onclick = () => {
+  nextButton.style.display = 'none';  // 버튼 숨기기
+  updateQuestion();  // 다음 질문으로 이동
+};
+// 총 문제 수 설정
+totalQuestionsElement.textContent = totalQuestions;
+
+function getRandomEvents() {
+  if (availableEvents.length < 2) {
+    endGame();
+    return;
+  }
+  const shuffled = availableEvents.sort(() => 0.5 - Math.random());
+  const event1 = shuffled[0];
+  const event2 = shuffled[1];
+  availableEvents = availableEvents.filter(event => event !== event1 && event !== event2);
+  return [event1, event2];
+}
+
+function updateQuestion() {
+  if (questionCount >= totalQuestions) {
+    endGame();
+    return;
+  }
+
+  // 기존 연도 요소 삭제
+  const existingYears = document.querySelectorAll('.event-year');
+  existingYears.forEach(year => year.remove());
+
+  const [event1, event2] = getRandomEvents();
+
+  event1Image.src = event1.image;
+  event1Name.textContent = event1.name;
+  event2Image.src = event2.image;
+  event2Name.textContent = event2.name;
+
+  // 새로운 연도 요소 추가
+  const event1Year = document.createElement('div');
+  event1Year.textContent = event1.year;
+  event1Year.classList.add('event-year');
+  const event2Year = document.createElement('div');
+  event2Year.textContent = event2.year;
+  event2Year.classList.add('event-year');
+
+  event1Image.after(event1Year);
+  event2Image.after(event2Year);
+
+  // 이미지와 연도를 다시 초기화
+  event1Image.parentElement.classList.remove('selected');
+  event2Image.parentElement.classList.remove('selected');
+
+  event1Image.onclick = () => checkAnswer(event1, event2, event1Year, event2Year);
+  event2Image.onclick = () => checkAnswer(event2, event1, event2Year, event1Year);
+
+  questionCount++;
+  currentScoreElement.textContent = score;
+  currentQuestionElement.textContent = questionCount;
+}
+function getRandomEvents() {
+  if (availableEvents.length < 2) {
+    endGame();
+    return;
+  }
+
+  let event1, event2;
+  let validPair = false;
+
+  while (!validPair) {
+    const shuffled = availableEvents.sort(() => 0.5 - Math.random());
+    event1 = shuffled[0];
+    event2 = shuffled[1];
+
+    // 두 사건의 연도 차이가 10년 이내일 경우 validPair를 true로 설정
+    if (Math.abs(event1.year - event2.year) <= 10) {
+      validPair = true;
+    }
+  }
+
+  // 선택된 사건들을 availableEvents에서 제거
+  availableEvents = availableEvents.filter(event => event !== event1 && event !== event2);
+
+  return [event1, event2];
+}
+function checkAnswer(older, newer, selectedYear, otherYear) {
+  event1Image.parentElement.classList.add('selected');
+  event2Image.parentElement.classList.add('selected');
+
+  if (older.year < newer.year) {
+    score++;
+    body.classList.add('correct-answer');
+  } else {
+    body.classList.add('wrong-answer');
+  }
+
+  // 버튼을 표시하고, 마지막 문제일 경우 '결과 보기'로 변경
+  nextButton.textContent = (questionCount === totalQuestions) ? '결과 보기' : '다음 문제';
+  nextButton.style.display = 'block';
+
+  setTimeout(() => {
+    body.classList.remove('correct-answer', 'wrong-answer');
+  }, 1500);  // 1.5초 후 배경색 효과 제거
+}
+
+function endGame() {
+  gamePage.classList.add('hidden');
+  resultPage.classList.remove('hidden');
+  finalScoreElement.textContent = score;
+}
+
+restartButton.onclick = () => {
+  score = 0;
+  questionCount = 0;
+  availableEvents = [...events];
+
+  resultPage.classList.add('hidden');
+  gamePage.classList.remove('hidden');
+  updateQuestion();
+};
+
+updateQuestion();
