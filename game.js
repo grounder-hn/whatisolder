@@ -61,11 +61,24 @@ document.body.appendChild(nextButton);  // 버튼을 body에 추가
 
 nextButton.onclick = () => {
   nextButton.style.display = 'none';  // 버튼 숨기기
+  resetStyles();  // 스타일 초기화
   updateQuestion();  // 다음 질문으로 이동
 };
 
 // 총 문제 수 설정
 totalQuestionsElement.textContent = totalQuestions;
+
+// 연도 초기화 및 선택된 스타일 리셋
+function resetStyles() {
+  event1Image.style.opacity = 1;
+  event2Image.style.opacity = 1;
+  
+  const eventYears = document.querySelectorAll('.event-year');
+  eventYears.forEach(year => year.remove());  // 이전 문제의 연도 삭제
+
+  event1Image.parentElement.classList.remove('selected');
+  event2Image.parentElement.classList.remove('selected');
+}
 
 function getRandomEvents() {
   if (availableEvents.length < 2) {
@@ -171,6 +184,7 @@ restartButton.onclick = () => {
   resultPage.classList.add('hidden');
   gamePage.classList.remove('hidden');
 
+  resetStyles();  // 스타일 초기화
   // 게임 재시작
   updateQuestion();
 };
@@ -212,3 +226,4 @@ function showRanking() {
 // 게임 시작
 updateQuestion();
 showRanking(); // 페이지가 로드될 때 랭킹 표시
+
