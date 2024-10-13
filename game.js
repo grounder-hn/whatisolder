@@ -63,6 +63,7 @@ nextButton.onclick = () => {
   nextButton.style.display = 'none';  // 버튼 숨기기
   updateQuestion();  // 다음 질문으로 이동
 };
+
 // 총 문제 수 설정
 totalQuestionsElement.textContent = totalQuestions;
 
@@ -116,7 +117,23 @@ function updateQuestion() {
   currentQuestionElement.textContent = questionCount;
 }
 
-function checkAnswer(older, newer, selectedYear, otherYear) {
+function checkAnswer(older, newer) {
+  // 선택된 이미지의 연도 표시 및 투명도 적용
+  const event1Year = document.createElement('div');
+  event1Year.className = 'event-year';
+  event1Year.textContent = older.year;
+
+  const event2Year = document.createElement('div');
+  event2Year.className = 'event-year';
+  event2Year.textContent = newer.year;
+
+  event1Image.parentElement.appendChild(event1Year);
+  event2Image.parentElement.appendChild(event2Year);
+
+  // 투명도 적용
+  event1Image.style.opacity = 0.5;
+  event2Image.style.opacity = 0.5;
+
   event1Image.parentElement.classList.add('selected');
   event2Image.parentElement.classList.add('selected');
 
@@ -195,4 +212,3 @@ function showRanking() {
 // 게임 시작
 updateQuestion();
 showRanking(); // 페이지가 로드될 때 랭킹 표시
-
