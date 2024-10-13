@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>어떤게 더 옛날일까?</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; }
+    .question { margin: 20px; font-size: 24px; }
+    .choices { margin: 20px; }
+    .score { margin-top: 30px; font-size: 20px; }
+  </style>
+</head>
+<body>
+  <h1>어떤게 더 옛날일까?</h1>
+  <div id="game">
+    <div class="question">
+      <p id="event1"></p>
+      <p>VS</p>
+      <p id="event2"></p>
+    </div>
+    <div class="choices">
+      <button id="chooseEvent1">첫번째가 더 옛날</button>
+      <button id="chooseEvent2">두번째가 더 옛날</button>
+    </div>
+    <div class="score">
+      <p>현재 점수: <span id="score">0</span></p>
+    </div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
