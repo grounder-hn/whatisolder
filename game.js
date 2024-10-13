@@ -74,19 +74,21 @@ function updateQuestion() {
 
   const [event1, event2] = getRandomEvents();
 
+  // 이미지 및 텍스트 업데이트
   event1Image.src = event1.image;
   event1Name.textContent = event1.name;
   event2Image.src = event2.image;
   event2Name.textContent = event2.name;
 
+  // 클릭 이벤트 설정
   event1Image.onclick = () => checkAnswer(event1, event2);
   event2Image.onclick = () => checkAnswer(event2, event1);
 
-  questionCount++;
-
-  // 현재 점수와 문제 번호 업데이트
+  // 점수 및 문제 번호 업데이트
   currentScoreElement.textContent = score;
-  currentQuestionElement.textContent = questionCount;
+  currentQuestionElement.textContent = questionCount + 1; // 문제는 1부터 시작하므로 +1
+
+  questionCount++;
 }
 
 function checkAnswer(older, newer) {
@@ -99,12 +101,12 @@ function checkAnswer(older, newer) {
     document.body.classList.add('wrong-answer');
   }
 
-  // 애니메이션이 끝난 후 클래스 제거
+  // 애니메이션이 끝난 후 클래스 제거 및 질문 업데이트
   setTimeout(() => {
     document.body.classList.remove('correct-answer');
     document.body.classList.remove('wrong-answer');
-    updateQuestion();
-  }, 500); // 0.5초 후에 애니메이션 제거
+    updateQuestion(); // 여기서 이미지를 다시 업데이트
+  }, 500); // 0.5초 후에 애니메이션 제거 및 업데이트
 }
 
 function endGame() {
