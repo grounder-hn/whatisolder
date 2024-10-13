@@ -62,25 +62,32 @@ nextButton.onclick = () => {
 };
 // 총 문제 수 설정
 totalQuestionsElement.textContent = totalQuestions;
-
 function getRandomEvents() {
   if (availableEvents.length < 2) {
     endGame();
     return;
   }
-  const shuffled = availableEvents.sort(() => 0.5 - Math.random());
-  const event1 = shuffled[0];
-  const event2 = shuffled[1];
-  availableEvents = availableEvents.filter(event => event !== event1 && event !== event2);
-  return [event1, event2];
-}
 
-function updateQuestion() {
-  if (questionCount >= totalQuestions) {
-    endGame();
-    return;
+  let event1, event2;
+  let validPair = false;
+
+  // 연도 차이가 10년 이하이고, 같은 연도가 아닐 때까지 반복
+  while (!validPair) {
+    const shuffled = availableEvents.sort(() => 0.5 - Math.random());
+    event1 = shuffled[0];
+    event2 = shuffled[1];
+
+    // 두 사건의 연도 차이가 10년 이하이고, 같은 연도가 아닐 경우 유효한 문제로 처리
+    if (Math.abs(event1.year - event2.year) <= 10 && event1.year !== event2.year) {
+      validPair = true;
+    }
   }
 
+  // 선택된 사건들을 availableEvents에서 제거
+  availableEvents = availableEvents.filter(event => event !== event1 && event !== event2);
+
+  return [event1, event2];
+}
   // 기존 연도 요소 삭제
   const existingYears = document.querySelectorAll('.event-year');
   existingYears.forEach(year => year.remove());
@@ -113,31 +120,6 @@ function updateQuestion() {
   questionCount++;
   currentScoreElement.textContent = score;
   currentQuestionElement.textContent = questionCount;
-}
-function getRandomEvents() {
-  if (availableEvents.length < 2) {
-    endGame();
-    return;
-  }
-
-  let event1, event2;
-  let validPair = false;
-
-  while (!validPair) {
-    const shuffled = availableEvents.sort(() => 0.5 - Math.random());
-    event1 = shuffled[0];
-    event2 = shuffled[1];
-
-    // 두 사건의 연도 차이가 10년 이내일 경우 validPair를 true로 설정
-    if (Math.abs(event1.year - event2.year) <= 10) {
-      validPair = true;
-    }
-  }
-
-  // 선택된 사건들을 availableEvents에서 제거
-  availableEvents = availableEvents.filter(event => event !== event1 && event !== event2);
-
-  return [event1, event2];
 }
 function checkAnswer(older, newer, selectedYear, otherYear) {
   event1Image.parentElement.classList.add('selected');
