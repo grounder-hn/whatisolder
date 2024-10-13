@@ -45,6 +45,10 @@ const event2Name = document.getElementById('event2Name');
 const currentScoreElement = document.getElementById('currentScore');
 const currentQuestionElement = document.getElementById('currentQuestion');
 const totalQuestionsElement = document.getElementById('totalQuestions');
+const finalScoreElement = document.getElementById('finalScore');
+const gamePage = document.getElementById('game-page');
+const resultPage = document.getElementById('result-page');
+const restartButton = document.getElementById('restartButton');
 
 // 총 문제 수 설정
 totalQuestionsElement.textContent = totalQuestions;
@@ -92,8 +96,27 @@ function checkAnswer(older, newer) {
 }
 
 function endGame() {
-  alert(`게임 종료! 최종 점수: ${score}`);
+  // 게임 페이지 숨기고 결과 페이지 보여주기
+  gamePage.classList.add('hidden');
+  resultPage.classList.remove('hidden');
+
+  // 최종 점수 표시
+  finalScoreElement.textContent = score;
 }
+
+// 게임 다시 시작
+restartButton.onclick = () => {
+  score = 0;
+  questionCount = 0;
+  availableEvents = [...events];
+
+  // 결과 페이지 숨기고 게임 페이지 보여주기
+  resultPage.classList.add('hidden');
+  gamePage.classList.remove('hidden');
+
+  // 게임 재시작
+  updateQuestion();
+};
 
 // 게임 시작
 updateQuestion();
