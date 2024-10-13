@@ -30,21 +30,8 @@ const events = [
   { name: '신과함께', year: 2010, image: 'images/28.png' },
   { name: '상남2인조', year: 1991, image: 'images/29.png' },
   { name: '별은 내 가슴에. 안재욱', year: 1997, image: 'images/30.png' }
-];
-
-let availableEvents = [...events];
-let score = 0;
-let questionCount = 0;
-const totalQuestions = 15;
-
-// DOM 요소 참조
-const event1Image = document.getElementById('event1Image');
-const event2Image = document.getElementById('event2Image');
-const event1Name = document.getElementById('event1Name');
-const event2Name = document.getElementById('event2Name');
-const currentScoreElement = document.getElementById('currentScore');
-const currentQuestionElement = document.getElementById('currentQuestion');
-const totalQuestionsElement = document.getElementById('totalQuestions');
+.getElementById('result-page');
+const restartButton = document.getElementById('restartButton');
 
 // 총 문제 수 설정
 totalQuestionsElement.textContent = totalQuestions;
@@ -87,13 +74,43 @@ function updateQuestion() {
 function checkAnswer(older, newer) {
   if (older.year < newer.year) {
     score++;
+    // 정답 애니메이션 적용
+    document.body.classList.add('correct-answer');
+  } else {
+    // 오답 애니메이션 적용
+    document.body.classList.add('wrong-answer');
   }
-  updateQuestion();
+
+  // 애니메이션이 끝난 후 클래스 제거
+  setTimeout(() => {
+    document.body.classList.remove('correct-answer');
+    document.body.classList.remove('wrong-answer');
+    updateQuestion();
+  }, 500); // 0.5초 후에 애니메이션 제거
 }
 
 function endGame() {
-  alert(`게임 종료! 최종 점수: ${score}`);
+  // 게임 페이지 숨기고 결과 페이지 보여주기
+  gamePage.classList.add('hidden');
+  resultPage.classList.remove('hidden');
+
+  // 최종 점수 표시
+  finalScoreElement.textContent = score;
 }
+
+// 게임 다시 시작
+restartButton.onclick = () => {
+  score = 0;
+  questionCount = 0;
+  availableEvents = [...events];
+
+  // 결과 페이지 숨기고 게임 페이지 보여주기
+  resultPage.classList.add('hidden');
+  gamePage.classList.remove('hidden');
+
+  // 게임 재시작
+  updateQuestion();
+};
 
 // 게임 시작
 updateQuestion();
