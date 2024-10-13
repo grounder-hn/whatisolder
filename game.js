@@ -30,8 +30,6 @@ const events = [
   { name: '신과함께', year: 2010, image: 'images/28.png' },
   { name: '상남2인조', year: 1991, image: 'images/29.png' },
   { name: '별은 내 가슴에. 안재욱', year: 1997, image: 'images/30.png' }
-  { name: '지폐 신권 발행', year: 2007, image: 'images/31.png' },
-  { name: '고구마언덕', year: 2002, image: 'images/32.png' }
 ];
 
 let availableEvents = [...events];
@@ -57,7 +55,6 @@ const playerNameInput = document.getElementById('playerName');
 const rankingList = document.getElementById('rankingList');
 const nextButton = document.createElement('button');  // '다음 문제' 버튼 동적 생성
 const body = document.body;
-const progressBar = document.getElementById('progressBar');
 
 nextButton.id = 'nextButton';
 nextButton.textContent = '다음 문제';
@@ -72,6 +69,7 @@ nextButton.onclick = () => {
 
 // 총 문제 수 설정
 totalQuestionsElement.textContent = totalQuestions;
+
 // 연도 초기화 및 선택된 스타일 리셋
 function resetStyles() {
   event1Image.style.opacity = 1;
@@ -112,6 +110,31 @@ function getRandomEvents() {
 
   return [event1, event2];
 }
+
+function updateQuestion() {
+  if (questionCount >= totalQuestions) {
+    endGame();
+    return;
+  }
+
+  const [event1, event2] = getRandomEvents();
+
+  event1Image.src = event1.image;
+  event1Name.textContent = event1.name;
+  event2Image.src = event2.image;
+  event2Name.textContent = event2.name;
+
+  // 클릭 이벤트 설정 (isAnswered 플래그 확인)
+  event1Image.onclick = () => { if (!isAnswered) checkAnswer(event1, event2); };
+  event2Image.onclick = () => { if (!isAnswered) checkAnswer(event2, event1); };
+
+  questionCount++;
+
+  // 현재 점수와 문제 번호 업데이트
+  currentScoreElement.textContent = score;
+  currentQuestionElement.textContent = questionCount;
+}
+
 function checkAnswer(older, newer) {
   isAnswered = true; // 정답을 한 번 선택하면 더 이상 클릭 불가능
 
@@ -149,35 +172,6 @@ function checkAnswer(older, newer) {
   setTimeout(() => {
     body.classList.remove('correct-answer', 'wrong-answer');
   }, 1500);  // 1.5초 후 배경색 효과 제거
-}
-function updateProgressBar() {
-  const progressPercentage = (questionCount / totalQuestions) * 100;
-  progressBar.style.width = `${progressPercentage}%`;
-}
-function updateQuestion() {
-  if (questionCount >= totalQuestions) {
-    endGame();
-    return;
-  }
-  const [event1, event2] = getRandomEvents();
-
-  console.log('Event 1 Image:', event1.image);  // 이미지 경로 출력
-  console.log('Event 2 Image:', event2.image);  // 이미지 경로 출력
-
-  event1Image.src = event1.image;
-  event1Name.textContent = event1.name;
-  event2Image.src = event2.image;
-  event2Name.textContent = event2.name;
-
-  // 클릭 이벤트 설정 (isAnswered 플래그 확인)
-  event1Image.onclick = () => { if (!isAnswered) checkAnswer(event1, event2); };
-  event2Image.onclick = () => { if (!isAnswered) checkAnswer(event2, event1); };
-
-  questionCount++;
-
-  // 현재 점수와 진행 바 업데이트
-  currentScoreElement.textContent = score;
-  updateProgressBar();  // 진행 바 업데이트
 }
 
 function endGame() {
@@ -240,8 +234,3 @@ function showRanking() {
 // 게임 시작
 updateQuestion();
 showRanking(); // 페이지가 로드될 때 랭킹 표시
-
-window.onload = function() {
-  updateQuestion();
-};
-
