@@ -30,7 +30,25 @@ const events = [
   { name: '신과함께', year: 2010, image: 'images/28.png' },
   { name: '상남2인조', year: 1991, image: 'images/29.png' },
   { name: '별은 내 가슴에. 안재욱', year: 1997, image: 'images/30.png' }
-.getElementById('result-page');
+
+  ];
+
+let availableEvents = [...events];
+let score = 0;
+let questionCount = 0;
+const totalQuestions = 15;
+
+// DOM 요소 참조
+const event1Image = document.getElementById('event1Image');
+const event2Image = document.getElementById('event2Image');
+const event1Name = document.getElementById('event1Name');
+const event2Name = document.getElementById('event2Name');
+const currentScoreElement = document.getElementById('currentScore');
+const currentQuestionElement = document.getElementById('currentQuestion');
+const totalQuestionsElement = document.getElementById('totalQuestions');
+const finalScoreElement = document.getElementById('finalScore');
+const gamePage = document.getElementById('game-page');
+const resultPage = document.getElementById('result-page');
 const restartButton = document.getElementById('restartButton');
 
 // 총 문제 수 설정
