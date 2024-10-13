@@ -26,11 +26,19 @@
     </div>
   </div>
 
-  <div id="result-page" class="hidden">
-    <h2>게임 종료!</h2>
-    <p>최종 점수: <span id="finalScore"></span></p>
-    <button id="restartButton">다시 하기</button>
-  </div>
+<div id="result-page" class="hidden">
+  <h2>게임 종료!</h2>
+  <p>최종 점수: <span id="finalScore"></span></p>
+
+  <label for="playerName">이름 입력: </label>
+  <input type="text" id="playerName" placeholder="이름을 입력하세요">
+  <button id="submitScore">점수 등록</button>
+
+  <h3>랭킹</h3>
+  <ul id="rankingList"></ul> <!-- 랭킹 리스트 -->
+
+  <button id="restartButton">다시 하기</button>
+</div>
 
   <script src="game.js"></script>
 </body>
