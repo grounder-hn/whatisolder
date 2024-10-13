@@ -124,6 +124,28 @@ body {
 #result-page {
   text-align: center;
 }
+#playerName {
+  margin-top: 10px;
+  padding: 5px;
+  font-size: 16px;
+}
+
+#submitScore {
+  margin-left: 10px;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+#rankingList {
+  list-style: none;
+  padding: 0;
+}
+
+#rankingList li {
+  margin: 5px 0;
+  font-size: 18px;
+}
+
 
 
 
