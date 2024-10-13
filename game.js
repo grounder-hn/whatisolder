@@ -123,6 +123,9 @@ function updateQuestion() {
 
   const [event1, event2] = getRandomEvents();
 
+  console.log('Event 1 Image:', event1.image);  // 이미지 경로 출력
+  console.log('Event 2 Image:', event2.image);  // 이미지 경로 출력
+
   event1Image.src = event1.image;
   event1Name.textContent = event1.name;
   event2Image.src = event2.image;
