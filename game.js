@@ -16,7 +16,7 @@ const events = [
   { name: '불닭볶음면', year: 2012, image: 'images/14.png' },
   { name: '비틀즈 Let it Be', year: 1970, image: 'images/15.png' },
   { name: '대부(The Godfather)1', year: 1973, image: 'images/16.png' },
-  { name: '스키니진', year: 2000, image: 'images/17.png' },
+  { name: '개그콘서트:봉숭아학당', year: 2000, image: 'images/17.png' },
   { name: '짬', year: 2005, image: 'images/18.png' },
   { name: '노스페이스 패딩', year: 2010, image: 'images/19.png' },
   { name: '웃찾사 그때그때 달라요', year: 2004, image: 'images/20.png' },
